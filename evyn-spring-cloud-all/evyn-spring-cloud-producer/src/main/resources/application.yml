@@ -2,7 +2,7 @@ server:
   port: 8763
 spring:
   application:
-    name: evyn-client
+    name: evyn-server
 
 eureka:
   client:

@@ -22,6 +22,6 @@ public class EvynConsumerServiceImpl implements EvynConsumerService {
 
     @Override
     public String HomeService(String name) {
-        return restTemplate.getForObject("http://EVYN-CLIENT/home?name=" + name, String.class);
+        return restTemplate.getForObject("http://EVYN-SERVER/home?name=" + name, String.class);
     }
 }
