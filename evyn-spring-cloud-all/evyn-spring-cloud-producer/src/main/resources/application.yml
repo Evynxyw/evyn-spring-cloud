@@ -1,10 +1,53 @@
 server:
-  port: 8763
+  port: 8081
 spring:
+  profiles: producer1
   application:
-    name: evyn-server
+    name: evyn-producer
+management:
+  security:
+    enabled: false
+  ##服务端口
+  server:
+    port: 8081
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 5 #配置心跳发送周期 秒 每隔5秒发送请求到eureka，默认是30秒
+    lease-expiration-duration-in-seconds: 10 #检测eureka是否返回消息，默认是90秒
+    metadata-map:
+      company-name: evynit1
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
+      defaultZone: http://127.0.0.1:8761/eureka/,http://127.0.0.1:8762/eureka/
+    instance-info-replication-interval-seconds: 10 #健康检查时间，默认30s
+logging:
+  level:
+    com.netflix: debug #打印心跳日志
+
+---
+
+server:
+  port: 8082
+spring:
+  profiles: producer2
+  application:
+    name: evyn-producer
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 5 #配置心跳发送周期 秒 每隔5秒发送请求到eureka，默认是30秒
+    lease-expiration-duration-in-seconds: 10 #检测eureka是否返回消息，默认是90秒
+    metadata-map:
+      company-name: evynit2
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/,http://127.0.0.1:8762/eureka/
+
+logging:
+  level:
+    com.netflex: debug

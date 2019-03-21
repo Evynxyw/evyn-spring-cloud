@@ -18,6 +18,8 @@
         <module>evyn-spring-cloud-eureka</module>
         <module>evyn-spring-cloud-producer</module>
         <module>evyn-spring-cloud-consumer</module>
+        <module>evyn-spring-cloud-dashbord</module>
+        <module>evyn-spring-cloud-zuul</module>
     </modules>
 
     <build>

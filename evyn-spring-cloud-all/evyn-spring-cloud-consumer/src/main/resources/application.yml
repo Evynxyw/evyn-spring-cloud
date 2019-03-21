@@ -1,10 +1,41 @@
 server:
-  port: 8764
+  port: 8888
 spring:
   application:
-    name: client1
+    name: client
 
+##开启feign开关
+feign:
+  hystrix:
+    enabled: true
+
+#配置断路器
+hystrix:
+  command:
+    ##全局方法使用default
+    EvynFeignClient#timeOutHome():
+      execution:
+        isolation:
+          thread:
+            ##超时时间
+            timeoutInMilliseconds: 500
+      circuitBreaker:
+        ##每秒3次请求
+        requestVolumeThreshold: 3
+
+management:
+  ##服务端口
+  server:
+    port: 8888
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
+      defaultZone: http://127.0.0.1:8761/eureka/,http://127.0.0.1:8762/eureka/
+    registry-fetch-interval-seconds: 30 #每隔5秒从注册中心拉一次服务列表，默认30秒
+logging:
+  level:
+   com.netflex: debug
